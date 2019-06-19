@@ -1,21 +1,27 @@
-import React, { Component } from "react";
-import "./App.css";
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import SaveBooks from "./pages/saved";
+import SearchBooks from "./pages/search";
+import Nav from "./components/Nav";
+import Jumbotron from "./components/Jumbotron"
+import Footer from "./components/Footer"
+import "./App.css"
 
-// smart component bc uses class --> has potential to use states
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+
+function App() {
+  return (
+    <Router>
+      <div>
+        <Nav />
+        <Jumbotron/>
+        <Switch>
+          <Route exact path="/" component={SearchBooks} />
+          <Route exact path="/saved" component={SaveBooks} />
+        </Switch>
+        <Footer />
       </div>
-    );
-  }
+    </Router>
+  );
 }
 
 export default App;
