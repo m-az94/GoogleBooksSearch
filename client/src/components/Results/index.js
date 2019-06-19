@@ -2,7 +2,7 @@ import React from "react";
 import { Container, Row, Col } from "../Grid"
 //import "./style.css";
 
-const SearchResult = props => {
+function SearchResult(props){
   return (
     <Container>
       <h3>Search Results</h3>
