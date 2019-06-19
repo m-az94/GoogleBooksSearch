@@ -13,18 +13,24 @@ class SearchBooks extends Component {
   };
 
   handleInputChange = event => {
-    this.setState({ search: event.target.value })
+    console.log(event);
+    console.log("search term: "+event.target.value);
+    this.setState({ search: event.target.value });
   }
 
   //function to control the submit button of the search form 
   handleFormSubmit = event => {
     event.preventDefault();
+    //console.log(event);
+    console.log("search: "+this.state.search)
     API.getGoogleSearchBooks(this.state.search)
       .then(res => {
         if (res.data.items === "error") {
-          throw new Error(res.data.items);
+          console.log("Error: "+res.data.items);
+          
         }
         else {
+          console.log(res.data.items);
           // store response
           let results = res.data.items
           //map through the array 
@@ -69,7 +75,20 @@ class SearchBooks extends Component {
           </Row>
         </Container>
         <Container>
-          <Results books={this.state.books} handleSavedButton={this.handleSavedButton} />
+          {
+            this.state.books.map(book =>{
+              return (<Results 
+              key={book._id}
+              id={book._id}
+              title={book.title}
+              author={book.authors}
+              image={book.image}
+              description={book.description}
+              link={book.link} 
+              handleSavedButton={this.handleSavedButton}
+              />
+            )})
+          }
         </Container>
       </Container>
     )

@@ -1,9 +1,11 @@
 #footer{
-    background-color: dimgray;
+    background-color: lightgrey;
     border-top: 3px solid cornflowerblue;
     color: cornflowerblue;
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%; 
+    text-align: center;
+    padding-top: 5px;
 }

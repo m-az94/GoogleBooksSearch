@@ -1,11 +1,11 @@
 import React from "react";
-//import "./style.css";
+import "./style.css";
 
-function Jumbotron({ children }) {
+function Jumbotron() {
     return (
         <div className="jumbotron jumbotron-fluid d-flex align-items-center">
             <div className="container text-center">
-                {children}
+            <h1> Welcome to Google Book Search </h1>
             </div>
         </div>
     );
