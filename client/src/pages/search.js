@@ -21,7 +21,7 @@ class SearchBooks extends Component {
   //function to control the submit button of the search form 
   handleFormSubmit = event => {
     event.preventDefault();
-    //console.log(event);
+    console.log("before API call: "+event);
     console.log("search: "+this.state.search)
     API.getGoogleSearchBooks(this.state.search)
       .then(res => {
@@ -30,7 +30,7 @@ class SearchBooks extends Component {
           
         }
         else {
-          console.log(res.data.items);
+          console.log("after api call "+res.data.items);
           // store response
           let results = res.data.items
           //map through the array 
@@ -45,12 +45,16 @@ class SearchBooks extends Component {
               image: result.volumeInfo.imageLinks.thumbnail,
               link: result.volumeInfo.infoLink
             }
+            console.log("result: ");
+            console.log(result);
             return result;
           })
-          this.setState({ books: results, search: ""})
+          this.setState({ books: results, search: ""});
+          console.log("state "+this.state.books);
         }
       })
       .catch(err => this.setState({ error: err.items }));
+      console.log("State: "+this.state.books);
   }
 
 
