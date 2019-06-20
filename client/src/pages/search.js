@@ -54,7 +54,6 @@ class SearchBooks extends Component {
         }
       })
       .catch(err => this.setState({ error: err.items }));
-      console.log("State: "+this.state.books);
   }
 
 

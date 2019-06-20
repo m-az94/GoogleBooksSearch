@@ -2,7 +2,7 @@ import React from "react";
 import { Container, Row, Col } from "../Grid"
 //import "./style.css";
 
-function SearchResult(props){
+function Results(props){
   return (
     <Container>
           <div className="card">
@@ -33,4 +33,4 @@ function SearchResult(props){
     </Container>
   )
 }
-export default SearchResult;
+export default Results;
