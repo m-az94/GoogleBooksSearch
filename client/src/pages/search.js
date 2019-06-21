@@ -58,7 +58,7 @@ class SearchBooks extends Component {
   render() {
     let result;
     if (this.state.books.length===0){
-      result = <p>No books available</p>;
+      result = <h3>No books available</h3>;
     }
     else{
       result = <Results books={this.state.books} 
