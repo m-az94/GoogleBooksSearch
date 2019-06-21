@@ -25,46 +25,48 @@ class SearchBooks extends Component {
     console.log("search: "+this.state.search)
     API.getGoogleSearchBooks(this.state.search)
       .then(res => {
-        if (res.data.items === "error") {
-          console.log("Error: "+res.data.items);
-          
-        }
-        else {
-          console.log("after api call "+res.data.items);
-          // store response
-          let results = res.data.items
-          //map through the array 
-          results = results.map(result => {
-            //store each book information in a new object 
-            result = {
-              key: result.id,
-              id: result.id,
-              title: result.volumeInfo.title,
-              authors: result.volumeInfo.authors,
-              description: result.volumeInfo.description,
-              image: result.volumeInfo.imageLinks.thumbnail,
-              link: result.volumeInfo.infoLink
-            }
-            console.log("result: ");
-            console.log(result);
-            return result;
+        console.log(res.data.items);
+        let book=[];
+        for(let i=0; i<res.data.items.length; i++){
+          book.push({
+            key: i,
+            authors:res.data.items[i].volumeInfo.authors,
+            title: res.data.items[i].volumeInfo.title,
+            image: res.data.items[i].volumeInfo.imageLinks.thumbnail,
+            description: res.data.items[i].volumeInfo.description,
+            link: res.data.items[i].accessInfo.webReaderLink
           })
-          this.setState({ books: results, search: ""});
-          console.log("state "+this.state.books);
+          this.setState({ books: book, search: ""});
         }
+        
+        console.log(this.state.books);
       })
       .catch(err => this.setState({ error: err.items }));
   }
 
 
-  handleSavedButton = event => {
-    event.preventDefault();
-    let savedBooks = this.state.books.filter(book => book.id === event.target.id)
+  handleSavedButton = (event, id) => {
+    event.persist();
+    //console.log(event);
+    console.log(id)
+    let savedBooks = this.state.books[id];
+    console.log(savedBooks)
     API.saveBook(savedBooks)
       .then(console.log(savedBooks))
       .catch(err => console.log(err));
   };
   render() {
+    let result;
+    if (this.state.books.length===0){
+      result = <p>No books available</p>;
+    }
+    else{
+      result = <Results books={this.state.books} 
+      handleSavedButton={this.handleSavedButton} 
+      />
+    }
+    console.log(this.state.books);
+
     return (
       <Container fluid>
         <Container>
@@ -76,22 +78,9 @@ class SearchBooks extends Component {
               />
             </Col>
           </Row>
-        </Container>
-        <Container>
-          {
-            this.state.books.map(book =>{
-              return (<Results 
-              key={book._id}
-              id={book._id}
-              title={book.title}
-              author={book.authors}
-              image={book.image}
-              description={book.description}
-              link={book.link} 
-              handleSavedButton={this.handleSavedButton}
-              />
-            )})
-          }
+          <Row>
+            {result}
+          </Row>
         </Container>
       </Container>
     )
