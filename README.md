@@ -9,8 +9,8 @@ The following web-application utilizes the Google Books API to find books based 
 *Javascript
 
 ## Tools and Techologies
-*NodeJS
-*ReactJS
+* NodeJS
+* ReactJS
 *ExpressJS
 *Google Books API
 *Axios
